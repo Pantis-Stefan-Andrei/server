@@ -13,7 +13,8 @@ app.use(bodyParser.json());
 app.use(cors()); // Enable CORS for all routes
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/user_management', {
+
+mongoose.connect('mongodb+srv://admin:admin@sundb.82x0bcp.mongodb.net/?retryWrites=true&w=majority&appName=SunDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -117,11 +118,11 @@ app.post('/api/schimbadate', async (req, res) => {
   }
 });
 
-// Rută pentru a obține toate produsele din baza de date
+// Ruta pentru a ob?ine toate produsele din baza de date
 app.get('/api/users', async (req, res) => {
   try {
-    // Obținerea tuturor produselor din baza de date
-    const usersvar = await User.find({}, {  __v: 0 }); // Excludem _id și __v din rezultat
+    // Ob?inerea tuturor produselor din baza de date
+    const usersvar = await User.find({}, {  __v: 0 }); // Excludem _id ?i __v din rezultat
     res.json(usersvar);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -131,18 +132,18 @@ app.post('/api/users', async (req, res) => {
   const { email, password, account_type, username ,anstudiu} = req.body;
 
   try {
-    // Verificăm dacă toate câmpurile sunt completate
+    // Verificam daca toate c�mpurile sunt completate
     if (!email || !password || !account_type || !username ) {
-      return res.status(400).json({ message: 'Toate câmpurile sunt obligatorii' });
+      return res.status(400).json({ message: 'Toate c�mpurile sunt obligatorii' });
     }
 
-    // Creăm un nou produs
+    // Cream un nou produs
     const newusersvar = new User({  email, password, account_type, username,anstudiu});
 
-    // Salvăm noul produs în baza de date
+    // Salvam noul produs �n baza de date
     await newusersvar.save();
 
-    res.status(201).json({ message: 'Produs adăugat cu succes' });
+    res.status(201).json({ message: 'Produs adaugat cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -150,12 +151,12 @@ app.post('/api/users', async (req, res) => {
 app.delete('/api/users/:id', async (req, res) => {
   const usersvarid = req.params.id;
   try {
-    // Găsirea și ștergerea produsului din baza de date
+    // Gasirea ?i ?tergerea produsului din baza de date
     const usersvar = await User.findByIdAndDelete(usersvarid);
     if (!usersvar) {
-      return res.status(404).json({ message: 'Produsul nu a fost găsit' });
+      return res.status(404).json({ message: 'Produsul nu a fost gasit' });
     }
-    res.status(200).json({ message: 'Produsul a fost șters cu succes' });
+    res.status(200).json({ message: 'Produsul a fost ?ters cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -170,17 +171,17 @@ const productSchema = new mongoose.Schema({
   Marime: String,
   Gen: String,
   Path: String,
-  // alte câmpuri relevante
+  // alte c�mpuri relevante
 });
 
 // Crearea modelului Product pe baza schemei definite
 const Product = mongoose.model('Product', productSchema);
 
-// Rută pentru a obține toate produsele din baza de date
+// Ruta pentru a ob?ine toate produsele din baza de date
 app.get('/api/products', async (req, res) => {
   try {
-    // Obținerea tuturor produselor din baza de date
-    const products = await Product.find({}, {  __v: 0 }); // Excludem _id și __v din rezultat
+    // Ob?inerea tuturor produselor din baza de date
+    const products = await Product.find({}, {  __v: 0 }); // Excludem _id ?i __v din rezultat
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -190,18 +191,18 @@ app.post('/api/products', async (req, res) => {
   const { Nume, Cantitate, Marime, Gen, Path } = req.body;
 
   try {
-    // Verificăm dacă toate câmpurile sunt completate
+    // Verificam daca toate c�mpurile sunt completate
     if (!Nume || !Cantitate || !Marime || !Gen || !Path ) {
-      return res.status(400).json({ message: 'Toate câmpurile sunt obligatorii' });
+      return res.status(400).json({ message: 'Toate c�mpurile sunt obligatorii' });
     }
 
-    // Creăm un nou produs
+    // Cream un nou produs
     const newProduct = new Product({ Nume, Cantitate, Marime, Gen, Path });
 
-    // Salvăm noul produs în baza de date
+    // Salvam noul produs �n baza de date
     await newProduct.save();
 
-    res.status(201).json({ message: 'Produs adăugat cu succes' });
+    res.status(201).json({ message: 'Produs adaugat cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -209,12 +210,12 @@ app.post('/api/products', async (req, res) => {
 app.delete('/api/products/:id', async (req, res) => {
   const productId = req.params.id;
   try {
-    // Găsirea și ștergerea produsului din baza de date
+    // Gasirea ?i ?tergerea produsului din baza de date
     const deletedProduct = await Product.findByIdAndDelete(productId);
     if (!deletedProduct) {
-      return res.status(404).json({ message: 'Produsul nu a fost găsit' });
+      return res.status(404).json({ message: 'Produsul nu a fost gasit' });
     }
-    res.status(200).json({ message: 'Produsul a fost șters cu succes' });
+    res.status(200).json({ message: 'Produsul a fost ?ters cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -234,11 +235,11 @@ const orderSchema = new mongoose.Schema({
 // Crearea modelului Product pe baza schemei definite
 const orders = mongoose.model('orders', orderSchema);
 
-// Rută pentru a obține toate produsele din baza de date
+// Ruta pentru a ob?ine toate produsele din baza de date
 app.get('/api/orders', async (req, res) => {
   try {
-    // Obținerea tuturor produselor din baza de date
-    const ordersc = await orders.find({}, {  __v: 0 }); // Excludem _id și __v din rezultat
+    // Ob?inerea tuturor produselor din baza de date
+    const ordersc = await orders.find({}, {  __v: 0 }); // Excludem _id ?i __v din rezultat
     res.json(ordersc);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -248,18 +249,18 @@ app.post('/api/orders', async (req, res) => {
   const {Nume, Cantitate, Marime, Gen, Path, Stare } = req.body;
 
   try {
-    // Verificăm dacă toate câmpurile sunt completate
+    // Verificam daca toate c�mpurile sunt completate
     if (!Nume || !Cantitate || !Marime || !Gen || !Path || !Stare) {
-      return res.status(400).json({ message: 'Toate câmpurile sunt obligatorii' });
+      return res.status(400).json({ message: 'Toate c�mpurile sunt obligatorii' });
     }
 
-    // Creăm un nou produs
+    // Cream un nou produs
     const neworders = new orders({Nume, Cantitate, Marime, Gen, Path, Stare });
 
-    // Salvăm noul produs în baza de date
+    // Salvam noul produs �n baza de date
     await neworders.save();
 
-    res.status(201).json({ message: 'Produs adăugat cu succes' });
+    res.status(201).json({ message: 'Produs adaugat cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -269,43 +270,43 @@ app.post('/api/neworders', async (req, res) => {
   const { Nume, Cantitate, Marime, Gen, Path, Stare } = req.body;
 
   try {
-    // Verificăm dacă toate câmpurile sunt completate
+    // Verificam daca toate c�mpurile sunt completate
     if (!Nume || !Cantitate || !Marime || !Gen || !Path) {
-      return res.status(400).json({ message: 'Toate câmpurile sunt obligatorii' });
+      return res.status(400).json({ message: 'Toate c�mpurile sunt obligatorii' });
     }
 
-    // Obținem toate comenzile din baza de date
+    // Ob?inem toate comenzile din baza de date
     const allOrders = await orders.find();
 
-    // Creăm un obiect pentru a număra câte ordine conțin aceleași detalii
+    // Cream un obiect pentru a numara c�te ordine con?in acelea?i detalii
     const countMap = {};
 
-    // Parcurgem toate comenzile și numărăm câte conțin aceleași detalii
+    // Parcurgem toate comenzile ?i numaram c�te con?in acelea?i detalii
     allOrders.forEach(order => {
       const key = [order.Nume, order.Cantitate, order.Marime, order.Gen, order.Path, order.Stare].join('|');
       countMap[key] = (countMap[key] || 0) + 1;
     });
 
-    // Identificăm valoarea maximă a repetițiilor
+    // Identificam valoarea maxima a repeti?iilor
     const maxCount = Math.max(...Object.values(countMap));
 
-    // Ștergem comenzile care nu conțin toate detaliile
+    // ?tergem comenzile care nu con?in toate detaliile
     const duplicates = allOrders.filter(order => {
       const key = [order.Nume, order.Cantitate, order.Marime, order.Gen, order.Path, order.Stare].join('|');
       return countMap[key] !== maxCount;
     });
 
-    // Ștergem comenzile duplicate
+    // ?tergem comenzile duplicate
     await Promise.all(duplicates.map(order => order.remove()));
 
-    // Creăm un nou produs
+    // Cream un nou produs
     const newOrder = new orders({ Nume, Cantitate, Marime, Gen, Path, Stare });
 
-    // Salvăm noul produs în baza de date
+    // Salvam noul produs �n baza de date
     await newOrder.save();
 
-    // Returnăm răspunsul JSON
-    res.status(201).json({ message: 'Produs adăugat cu succes', duplicates: duplicates.length });
+    // Returnam raspunsul JSON
+    res.status(201).json({ message: 'Produs adaugat cu succes', duplicates: duplicates.length });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -314,12 +315,12 @@ app.post('/api/neworders', async (req, res) => {
 app.delete('/api/orders/:id', async (req, res) => {
   const ordersid = req.params.id;
   try {
-    // Găsirea și ștergerea produsului din baza de date
+    // Gasirea ?i ?tergerea produsului din baza de date
     const deletedorders = await orders.findByIdAndDelete(ordersid);
     if (!deletedorders) {
-      return res.status(404).json({ message: 'Produsul nu a fost găsit' });
+      return res.status(404).json({ message: 'Produsul nu a fost gasit' });
     }
-    res.status(200).json({ message: 'Produsul a fost șters cu succes' });
+    res.status(200).json({ message: 'Produsul a fost ?ters cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -360,7 +361,7 @@ app.post('/api/comments', async (req, res) => {
   try {
     const { productId, content, rating ,User} = req.body;
     if (!productId || !content ||!rating|| !User ) {
-      return res.status(400).json({ message: 'Toate câmpurile sunt obligatorii' });
+      return res.status(400).json({ message: 'Toate c�mpurile sunt obligatorii' });
     }
     const newComment = new Comment({ productId, content, rating,User });
    
@@ -394,12 +395,12 @@ app.get('/api/allcomments', async (req, res) => {
 app.delete('/api/comments/:id', async (req, res) => {
   const ordersid = req.params.id;
   try {
-    // Găsirea și ștergerea produsului din baza de date
+    // Gasirea ?i ?tergerea produsului din baza de date
     const deletedorders = await Comment.findByIdAndDelete(ordersid);
     if (!deletedorders) {
-      return res.status(404).json({ message: 'Produsul nu a fost găsit' });
+      return res.status(404).json({ message: 'Produsul nu a fost gasit' });
     }
-    res.status(200).json({ message: 'Produsul a fost șters cu succes' });
+    res.status(200).json({ message: 'Produsul a fost ?ters cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -439,9 +440,9 @@ app.delete('/api/problems/:id', async (req, res) => {
     
     const deletedorders = await problem.findByIdAndDelete(ordersid);
     if (!deletedorders) {
-      return res.status(404).json({ message: 'Produsul nu a fost găsit' });
+      return res.status(404).json({ message: 'Produsul nu a fost gasit' });
     }
-    res.status(200).json({ message: 'Produsul a fost șters cu succes' });
+    res.status(200).json({ message: 'Produsul a fost ?ters cu succes' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
