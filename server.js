@@ -229,7 +229,7 @@ const orderSchema = new mongoose.Schema({
   Path: String,
   NumarPr: Number,
   Stare: String,
-  
+  NumeP: String,
 });
 
 // Crearea modelului Product pe baza schemei definite
@@ -246,16 +246,16 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 app.post('/api/orders', async (req, res) => {
-  const {Nume, Cantitate, Marime, Gen, Path, Stare } = req.body;
+  const {Nume, Cantitate, Marime, Gen, Path, Stare , NumeP } = req.body;
 
   try {
     // Verificam daca toate c�mpurile sunt completate
-    if (!Nume || !Cantitate || !Marime || !Gen || !Path || !Stare) {
+    if (!Nume || !Cantitate || !Marime || !Gen || !Path || !Stare || ! NumeP) {
       return res.status(400).json({ message: 'Toate c�mpurile sunt obligatorii' });
     }
 
     // Cream un nou produs
-    const neworders = new orders({Nume, Cantitate, Marime, Gen, Path, Stare });
+    const neworders = new orders({Nume, Cantitate, Marime, Gen, Path, Stare ,NumeP});
 
     // Salvam noul produs �n baza de date
     await neworders.save();
