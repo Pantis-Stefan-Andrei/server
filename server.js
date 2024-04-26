@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   password: String,
 account_type: String,
 username: String,
-anstudiu:Number
+anstudiu:Number,
 });
 
 const User = mongoose.model('User', userSchema);
